@@ -12,7 +12,7 @@ public class UserService {
   }
 
   public User create(String name, String email) {
-    if (this.validator.isValid(email)) {
+    if (!this.validator.isValid(email)) {
       System.out.println("Email address is invalid!");
       return null;
     }

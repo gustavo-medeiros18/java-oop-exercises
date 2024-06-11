@@ -30,4 +30,14 @@ public class Photo {
   public int getUserId() {
     return userId;
   }
+
+  @Override
+  public String toString() {
+    return "Photo{" +
+        "id=" + id +
+        ", url='" + url + '\'' +
+        ", uploadDate=" + uploadDate +
+        ", userId=" + userId +
+        '}';
+  }
 }

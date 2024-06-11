@@ -1,5 +1,6 @@
 package exercise4.services;
 
+import exercise4.database.PhotoRepository;
 import exercise4.factories.PhotoFactory;
 import exercise4.models.Photo;
 import exercise4.strategies.ValidationStrategy;
@@ -19,6 +20,9 @@ public class PhotoService {
       return null;
     }
 
-    return PhotoFactory.create(url, uploadDate, userId);
+    Photo photo = PhotoFactory.create(url, uploadDate, userId);
+    PhotoRepository.add(photo);
+
+    return photo;
   }
 }

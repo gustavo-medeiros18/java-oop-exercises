@@ -14,6 +14,11 @@ public class PhotoService {
   }
 
   public Photo create(String url, Date uploadDate, int userId) {
+    if (!this.validator.isValid(url)) {
+      System.out.println("URL is invalid!");
+      return null;
+    }
+
     return PhotoFactory.create(url, uploadDate, userId);
   }
 }

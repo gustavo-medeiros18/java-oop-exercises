@@ -29,4 +29,8 @@ public class UserService {
   public List<User> index() {
     return UserRepository.all();
   }
+
+  public User show(int id) {
+    return UserRepository.find(id);
+  }
 }

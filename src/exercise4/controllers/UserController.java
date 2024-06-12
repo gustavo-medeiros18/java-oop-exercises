@@ -22,6 +22,10 @@ public class UserController {
     return userService.show(id);
   }
 
+  public static void update(int id, User newUserData) {
+    userService.update(id, newUserData);
+  }
+
   public static void remove(int id) {
     userService.remove(id);
   }

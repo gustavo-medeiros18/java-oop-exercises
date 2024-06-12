@@ -33,4 +33,8 @@ public class UserService {
   public User show(int id) {
     return UserRepository.find(id);
   }
+
+  public void remove(int id) {
+    UserRepository.delete(id);
+  }
 }

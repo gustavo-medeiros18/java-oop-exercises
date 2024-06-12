@@ -14,13 +14,12 @@ public class UserService {
     this.validator = validator;
   }
 
-  public User create(String name, String email) {
-    if (!this.validator.isValid(email)) {
+  public User create(User user) {
+    if (!this.validator.isValid(user.getEmail())) {
       System.out.println("Email address is invalid!");
       return null;
     }
 
-    User user = UserFactory.create(name, email);
     UserRepository.add(user);
 
     return user;

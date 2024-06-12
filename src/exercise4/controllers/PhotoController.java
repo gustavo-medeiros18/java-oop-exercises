@@ -18,4 +18,8 @@ public class PhotoController {
   public static List<Photo> index() {
     return photoService.index();
   }
+
+  public static Photo show(int id) {
+    return photoService.show(id);
+  }
 }

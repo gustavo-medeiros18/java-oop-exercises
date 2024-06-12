@@ -17,4 +17,8 @@ public class UserController {
   public static List<User> index() {
     return userService.index();
   }
+
+  public static User show(int id) {
+    return userService.show(id);
+  }
 }

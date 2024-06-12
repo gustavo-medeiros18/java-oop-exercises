@@ -21,4 +21,8 @@ public class UserController {
   public static User show(int id) {
     return userService.show(id);
   }
+
+  public static void remove(int id) {
+    userService.remove(id);
+  }
 }

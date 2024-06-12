@@ -1,10 +1,13 @@
 package exercise4;
 
 
+import exercise4.controllers.PhotoController;
 import exercise4.controllers.UserController;
 
+import exercise4.models.Photo;
 import exercise4.models.User;
 
+import java.util.Date;
 import java.util.List;
 
 public class Main {
@@ -17,7 +20,16 @@ public class Main {
     // Exibindo os usuários criados
     List<User> users = UserController.index();
     for (User user : users) {
-      System.out.println("ID: " + user.getId() + ", Name: " + user.getName() + ", Email: " + user.getEmail());
+      System.out.println(user);
+    }
+
+    PhotoController.create("https://photo1.com", new Date(), 1);
+    PhotoController.create("https://photo2.com", new Date(), 2);
+
+    List<Photo> photos = PhotoController.index();
+
+    for (Photo photo : photos) {
+      System.out.println(photo);
     }
   }
 }

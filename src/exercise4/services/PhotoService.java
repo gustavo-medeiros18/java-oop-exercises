@@ -6,6 +6,7 @@ import exercise4.models.Photo;
 import exercise4.strategies.ValidationStrategy;
 
 import java.util.Date;
+import java.util.List;
 
 public class PhotoService {
   private ValidationStrategy validator;
@@ -24,5 +25,9 @@ public class PhotoService {
     PhotoRepository.add(photo);
 
     return photo;
+  }
+
+  public List<Photo> index() {
+    return PhotoRepository.all();
   }
 }

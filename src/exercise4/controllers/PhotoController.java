@@ -11,8 +11,8 @@ public class PhotoController {
   private static final PhotoService photoService =
       new PhotoService(new UrlValidation());
 
-  public static Photo create(String url, Date uploadDate, int userId) {
-    return photoService.create(url, uploadDate, userId);
+  public static Photo create(Photo photo) {
+    return photoService.create(photo);
   }
 
   public static List<Photo> index() {

@@ -69,4 +69,37 @@ public class Main {
     }
     System.out.println("User Update Test Completed.\n");
   }
+
+  private static void testUserDeletion() {
+    System.out.println("Testing User Deletion:");
+    UserController.remove(2);
+    List<User> users = UserController.index();
+    for (User user : users) {
+      System.out.println(user);
+    }
+    System.out.println("User Deletion Test Completed.\n");
+  }
+
+  private static void testPhotoCreation() {
+    System.out.println("Testing Photo Creation:");
+
+    Photo photo1 = PhotoFactory.create("https://photo1.com", new Date(), 1);
+    Photo photo2 = PhotoFactory.create("https://photo2.com", new Date(), 1);
+
+    PhotoController.create(photo1);
+    PhotoController.create(photo2);
+
+    List<Photo> photos = PhotoController.index();
+    for (Photo photo : photos) {
+      System.out.println(photo);
+    }
+    System.out.println("Photo Creation Test Completed.\n");
+  }
+
+  private static void testPhotoDisplay() {
+    System.out.println("Testing Photo Display:");
+    Photo photo = PhotoController.show(1);
+    System.out.println(photo);
+    System.out.println("Photo Display Test Completed.\n");
+  }
 }

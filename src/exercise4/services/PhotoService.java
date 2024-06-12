@@ -30,4 +30,8 @@ public class PhotoService {
   public List<Photo> index() {
     return PhotoRepository.all();
   }
+
+  public Photo show(int id) {
+    return PhotoRepository.find(id);
+  }
 }

@@ -10,8 +10,8 @@ public class UserController {
   private static final UserService userService =
       new UserService(new EmailValidation());
 
-  public static User create(String name, String email) {
-    return userService.create(name, email);
+  public static User create(User user) {
+    return userService.create(user);
   }
 
   public static List<User> index() {

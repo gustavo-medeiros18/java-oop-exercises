@@ -14,6 +14,7 @@ public class Main {
     testUserCreation();
     testPhotoCreation();
     testUserDisplay();
+    testUserUpdate();
     testUserDeletion();
   }
 
@@ -57,5 +58,15 @@ public class Main {
       System.out.println(user);
     }
     System.out.println("User Deletion Test Completed.\n");
+  }
+
+  private static void testUserUpdate() {
+    System.out.println("Testing User Update:");
+    UserController.update(1, new User("User1Updated", "newemail.com"));
+    List<User> users = UserController.index();
+    for (User user : users) {
+      System.out.println(user);
+    }
+    System.out.println("User Update Test Completed.\n");
   }
 }

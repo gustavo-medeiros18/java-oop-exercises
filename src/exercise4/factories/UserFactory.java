@@ -8,4 +8,8 @@ public class UserFactory {
   public static User create(String name, String email) {
     return new User(++idCount, name, email);
   }
+
+  public static User create(int id, String name, String email) {
+    return new User(id, name, email);
+  }
 }

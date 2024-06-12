@@ -35,6 +35,17 @@ public class UserRepository {
     return users;
   }
 
+  public static void update(int id, User newUserData) {
+    User user = find(id);
+
+    if (user != null) {
+      user.setName(newUserData.getName());
+      user.setEmail(newUserData.getEmail());
+
+      users.set(id - 1, user);
+    }
+  }
+
   public static void delete(int id) {
     User user = find(id);
     users.remove(user);

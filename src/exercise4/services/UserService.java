@@ -34,6 +34,11 @@ public class UserService {
     return UserRepository.find(id);
   }
 
+  // update method
+  public void update(int id, User newUserData) {
+    UserRepository.update(id, newUserData);
+  }
+
   public void remove(int id) {
     UserRepository.delete(id);
   }

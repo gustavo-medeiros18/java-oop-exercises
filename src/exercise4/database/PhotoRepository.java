@@ -1,6 +1,7 @@
 package exercise4.database;
 
 import exercise4.models.Photo;
+import exercise4.models.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,11 @@ public class PhotoRepository {
 
   public static void add(Photo photo) {
     photos.add(photo);
+
+    User user = UserRepository.find(photo.getUserId());
+
+    if (user != null) user.getPhotos().add(photo);
+
   }
 
   public static Photo find(int id) {

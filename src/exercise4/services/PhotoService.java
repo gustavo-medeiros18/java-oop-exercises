@@ -15,13 +15,12 @@ public class PhotoService {
     this.validator = validator;
   }
 
-  public Photo create(String url, Date uploadDate, int userId) {
-    if (!this.validator.isValid(url)) {
+  public Photo create(Photo photo) {
+    if (!this.validator.isValid(photo.getUrl())) {
       System.out.println("URL is invalid!");
       return null;
     }
 
-    Photo photo = PhotoFactory.create(url, uploadDate, userId);
     PhotoRepository.add(photo);
 
     return photo;

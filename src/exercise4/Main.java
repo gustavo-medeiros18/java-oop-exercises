@@ -19,7 +19,11 @@ public class Main {
     testUserDeletion();
 
     testPhotoCreation();
+
+    testUserDisplay();
+
     testPhotoDisplay();
+    testPhotoDeletion();
 
     testUserDisplay();
   }
@@ -90,5 +94,15 @@ public class Main {
     Photo photo = PhotoController.show(1);
     System.out.println(photo);
     System.out.println("Photo Display Test Completed.\n");
+  }
+
+  private static void testPhotoDeletion() {
+    System.out.println("Testing Photo Deletion:");
+    PhotoController.remove(2);
+    List<Photo> photos = PhotoController.index();
+    for (Photo photo : photos) {
+      System.out.println(photo);
+    }
+    System.out.println("Photo Deletion Test Completed.\n");
   }
 }

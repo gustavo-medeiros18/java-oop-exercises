@@ -1,5 +1,6 @@
 package exercise4.database;
 
+import exercise4.exceptions.UserNotFoundException;
 import exercise4.models.Photo;
 import exercise4.models.User;
 
@@ -38,12 +39,13 @@ public class UserRepository {
   public static void update(int id, User newUserData) {
     User user = find(id);
 
-    if (user != null) {
-      user.setName(newUserData.getName());
-      user.setEmail(newUserData.getEmail());
+    if (user == null)
+      throw new UserNotFoundException("User with id " + id + " not found.");
 
-      users.set(id - 1, user);
-    }
+    user.setName(newUserData.getName());
+    user.setEmail(newUserData.getEmail());
+
+    users.set(id - 1, user);
   }
 
   public static void delete(int id) {

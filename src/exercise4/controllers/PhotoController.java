@@ -22,6 +22,10 @@ public class PhotoController {
     return photoService.show(id);
   }
 
+  public static void update(int id, Photo newPhotoData) {
+    photoService.update(id, newPhotoData);
+  }
+
   public static void remove(int id) {
     photoService.remove(id);
   }

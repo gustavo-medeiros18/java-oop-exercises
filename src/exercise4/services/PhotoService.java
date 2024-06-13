@@ -1,11 +1,9 @@
 package exercise4.services;
 
 import exercise4.database.PhotoRepository;
-import exercise4.factories.PhotoFactory;
 import exercise4.models.Photo;
 import exercise4.strategies.ValidationStrategy;
 
-import java.util.Date;
 import java.util.List;
 
 public class PhotoService {
@@ -32,5 +30,9 @@ public class PhotoService {
 
   public Photo show(int id) {
     return PhotoRepository.find(id);
+  }
+
+  public void remove(int id) {
+    PhotoRepository.delete(id);
   }
 }

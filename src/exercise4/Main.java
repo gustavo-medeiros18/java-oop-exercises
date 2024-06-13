@@ -24,7 +24,9 @@ public class Main {
 
     testPhotoDisplay();
     testPhotoDeletion();
+    testUserDisplay();
 
+    testPhotoUpdate();
     testUserDisplay();
   }
 
@@ -94,6 +96,16 @@ public class Main {
     Photo photo = PhotoController.show(1);
     System.out.println(photo);
     System.out.println("Photo Display Test Completed.\n");
+  }
+
+  private static void testPhotoUpdate() {
+    System.out.println("Testing Photo Update:");
+    PhotoController.update(1, new Photo("https://photo1updated.com", new Date(), 1));
+    List<Photo> photos = PhotoController.index();
+    for (Photo photo : photos) {
+      System.out.println(photo);
+    }
+    System.out.println("Photo Update Test Completed.\n");
   }
 
   private static void testPhotoDeletion() {

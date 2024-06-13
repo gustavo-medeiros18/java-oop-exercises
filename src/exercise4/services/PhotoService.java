@@ -32,6 +32,10 @@ public class PhotoService {
     return PhotoRepository.find(id);
   }
 
+  public void update(int id, Photo newPhotoData) {
+    PhotoRepository.update(id, newPhotoData);
+  }
+
   public void remove(int id) {
     PhotoRepository.delete(id);
   }

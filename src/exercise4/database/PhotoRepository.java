@@ -33,6 +33,12 @@ public class PhotoRepository {
 
   public static void delete(int id) {
     Photo photo = find(id);
-    photos.remove(photo);
+
+    if (photo != null) {
+      User user = UserRepository.find(photo.getUserId());
+      if (user != null) user.getPhotos().remove(photo);
+
+      photos.remove(photo);
+    }
   }
 }

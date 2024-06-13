@@ -3,13 +3,20 @@ package exercise4.models;
 import java.util.Date;
 
 public class Photo {
-  private final int id;
+  private final Integer id;
   private String url;
   private Date uploadDate;
   private int userId;
 
   public Photo(int id, String url, Date uploadDate, int userId) {
     this.id = id;
+    this.url = url;
+    this.uploadDate = uploadDate;
+    this.userId = userId;
+  }
+
+  public Photo(String url, Date uploadDate, int userId) {
+    this.id = null;
     this.url = url;
     this.uploadDate = uploadDate;
     this.userId = userId;
@@ -29,6 +36,18 @@ public class Photo {
 
   public int getUserId() {
     return userId;
+  }
+
+  public void setUserId(int userId) {
+    this.userId = userId;
+  }
+
+  public void setUploadDate(Date uploadDate) {
+    this.uploadDate = uploadDate;
+  }
+
+  public void setUrl(String url) {
+    this.url = url;
   }
 
   @Override

@@ -4,7 +4,6 @@ import exercise4.models.Photo;
 import exercise4.services.PhotoService;
 import exercise4.strategies.UrlValidation;
 
-import java.util.Date;
 import java.util.List;
 
 public class PhotoController {
@@ -21,5 +20,9 @@ public class PhotoController {
 
   public static Photo show(int id) {
     return photoService.show(id);
+  }
+
+  public static void remove(int id) {
+    photoService.remove(id);
   }
 }

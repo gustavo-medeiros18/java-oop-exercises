@@ -4,22 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User {
-  private final Integer id;
+  private Integer id;
   private String name;
   private String email;
   private List<Photo> photos;
 
-  public User(int id, String name, String email) {
-    this.id = id;
+  public User(String name, String email) {
     this.name = name;
     this.email = email;
     this.photos = new ArrayList<>();
-  }
-
-  public User(String name, String email) {
-    this.id = null;
-    this.name = name;
-    this.email = email;
   }
 
   public int getId() {
@@ -32,6 +25,10 @@ public class User {
 
   public String getEmail() {
     return email;
+  }
+
+  public void setId(Integer id) {
+    this.id = id;
   }
 
   public void setName(String name) {

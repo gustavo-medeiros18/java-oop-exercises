@@ -9,9 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PhotoRepository {
+  private static int idCount = 1;
   static List<Photo> photos = new ArrayList<>();
 
   public static void add(Photo photo) {
+    photo.setId(idCount++);
     photos.add(photo);
 
     User user = UserRepository.find(photo.getUserId());

@@ -2,6 +2,8 @@ package exercise4;
 
 import exercise4.controllers.PhotoController;
 import exercise4.controllers.UserController;
+import exercise4.exceptions.InvalidEmailException;
+import exercise4.exceptions.InvalidUrlException;
 import exercise4.exceptions.PhotoNotFoundException;
 import exercise4.exceptions.UserNotFoundException;
 import exercise4.factories.PhotoFactory;
@@ -14,10 +16,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-  // TODO: Lançar exceção caso sejam passados urls e emails inválidos
   // TODO: Cascade delete de fotos ao deletar um usuário
   // FIXME: Fazer com que uma foto seja movida de usuário caso o userId
   //  dela seja alterado.
+  // FIXME: Corrigir a alteração de foto quando dá problemas relacionados ao Id.
 
   public static void main(String[] args) {
     Scanner input = new Scanner(System.in);
@@ -62,14 +64,18 @@ public class Main {
 
       switch (userChoice) {
         case 1:
-          System.out.print("Enter user name (or type 'cancel' to go back): ");
-          String name = input.nextLine();
-          if (name.equalsIgnoreCase("cancel")) break;
-          System.out.print("Enter user email (or type 'cancel' to go back): ");
-          String email = input.nextLine();
-          if (email.equalsIgnoreCase("cancel")) break;
-          User user = UserFactory.create(name, email);
-          UserController.create(user);
+          try {
+            System.out.print("Enter user name (or type 'cancel' to go back): ");
+            String name = input.nextLine();
+            if (name.equalsIgnoreCase("cancel")) break;
+            System.out.print("Enter user email (or type 'cancel' to go back): ");
+            String email = input.nextLine();
+            if (email.equalsIgnoreCase("cancel")) break;
+            User user = UserFactory.create(name, email);
+            UserController.create(user);
+          } catch (InvalidEmailException e) {
+            System.out.println(e.getMessage());
+          }
           break;
         case 2:
           System.out.print("Enter user id (or type 'cancel' to go back): ");
@@ -100,7 +106,7 @@ public class Main {
               User newUser = UserFactory.create(newName, newEmail);
               UserController.update(userId, newUser);
               validInput = true;
-            } catch (UserNotFoundException e) {
+            } catch (UserNotFoundException | InvalidEmailException e) {
               System.out.println(e.getMessage());
               System.out.println("Please try again.");
             }
@@ -137,15 +143,19 @@ public class Main {
 
       switch (photoChoice) {
         case 1:
-          System.out.print("Enter photo url (or type 'cancel' to go back): ");
-          String url = input.nextLine();
-          if (url.equalsIgnoreCase("cancel")) break;
-          System.out.print("Enter user id (or type 'cancel' to go back): ");
-          String userIdInput = input.nextLine();
-          if (userIdInput.equalsIgnoreCase("cancel")) break;
-          int userId = Integer.parseInt(userIdInput);
-          Photo photo = PhotoFactory.create(url, new Date(), userId);
-          PhotoController.create(photo);
+          try {
+            System.out.print("Enter photo url (or type 'cancel' to go back): ");
+            String url = input.nextLine();
+            if (url.equalsIgnoreCase("cancel")) break;
+            System.out.print("Enter user id (or type 'cancel' to go back): ");
+            String userIdInput = input.nextLine();
+            if (userIdInput.equalsIgnoreCase("cancel")) break;
+            int userId = Integer.parseInt(userIdInput);
+            Photo photo = PhotoFactory.create(url, new Date(), userId);
+            PhotoController.create(photo);
+          } catch (InvalidUrlException | UserNotFoundException e) {
+            System.out.println(e.getMessage());
+          }
           break;
         case 2:
           System.out.print("Enter photo id (or type 'cancel' to go back): ");
@@ -177,7 +187,7 @@ public class Main {
               Photo newPhoto = PhotoFactory.create(newUrl, new Date(), newUserId);
               PhotoController.update(photoId, newPhoto);
               validInput = true;
-            } catch (PhotoNotFoundException | UserNotFoundException e) {
+            } catch (PhotoNotFoundException | UserNotFoundException | InvalidUrlException e) {
               System.out.println(e.getMessage());
               System.out.println("Please try again.");
             }

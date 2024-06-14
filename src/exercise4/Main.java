@@ -19,7 +19,6 @@ public class Main {
   // TODO: Cascade delete de fotos ao deletar um usuário
   // FIXME: Fazer com que uma foto seja movida de usuário caso o userId
   //  dela seja alterado.
-  // FIXME: Corrigir a alteração de foto quando dá problemas relacionados ao Id.
 
   public static void main(String[] args) {
     Scanner input = new Scanner(System.in);

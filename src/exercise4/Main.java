@@ -15,6 +15,8 @@ import java.util.Scanner;
 
 public class Main {
   // TODO: Lançar exceção caso sejam passados urls e emails inválidos
+  // TODO: Cascade delete de fotos ao deletar um usuário
+  // TODO: Fazer com quem, após cada operação, o crud fique no mesmo menu
   // FIXME: Fazer com que uma foto seja movida de usuário caso o userId
   //  dela seja alterado.
 
@@ -65,16 +67,20 @@ public class Main {
     Scanner input = new Scanner(System.in);
     switch (choice) {
       case 1:
-        System.out.print("Enter user name: ");
+        System.out.print("Enter user name (or type 'cancel' to go back): ");
         String name = input.nextLine();
-        System.out.print("Enter user email: ");
+        if (name.equalsIgnoreCase("cancel")) return;
+        System.out.print("Enter user email (or type 'cancel' to go back): ");
         String email = input.nextLine();
+        if (email.equalsIgnoreCase("cancel")) return;
         User user = UserFactory.create(name, email);
         UserController.create(user);
         break;
       case 2:
-        System.out.print("Enter user id: ");
-        int id = input.nextInt();
+        System.out.print("Enter user id (or type 'cancel' to go back): ");
+        String idInput = input.nextLine();
+        if (idInput.equalsIgnoreCase("cancel")) return;
+        int id = Integer.parseInt(idInput);
         User foundUser = UserController.show(id);
         System.out.println(foundUser);
         break;
@@ -86,13 +92,16 @@ public class Main {
         boolean validInput = false;
         do {
           try {
-            System.out.print("Enter user id: ");
-            int userId = input.nextInt();
-            input.nextLine();
-            System.out.print("Enter new user name: ");
+            System.out.print("Enter user id (or type 'cancel' to go back): ");
+            String userIdInput = input.nextLine();
+            if (userIdInput.equalsIgnoreCase("cancel")) return;
+            int userId = Integer.parseInt(userIdInput);
+            System.out.print("Enter new user name (or type 'cancel' to go back): ");
             String newName = input.nextLine();
-            System.out.print("Enter new user email: ");
+            if (newName.equalsIgnoreCase("cancel")) return;
+            System.out.print("Enter new user email (or type 'cancel' to go back): ");
             String newEmail = input.nextLine();
+            if (newEmail.equalsIgnoreCase("cancel")) return;
             User newUser = UserFactory.create(newName, newEmail);
             UserController.update(userId, newUser);
             validInput = true;
@@ -103,8 +112,10 @@ public class Main {
         } while (!validInput);
         break;
       case 5:
-        System.out.print("Enter user id: ");
-        int deleteId = input.nextInt();
+        System.out.print("Enter user id (or type 'cancel' to go back): ");
+        String deleteIdInput = input.nextLine();
+        if (deleteIdInput.equalsIgnoreCase("cancel")) return;
+        int deleteId = Integer.parseInt(deleteIdInput);
         UserController.remove(deleteId);
         break;
       case 0:
@@ -118,16 +129,21 @@ public class Main {
     Scanner input = new Scanner(System.in);
     switch (choice) {
       case 1:
-        System.out.print("Enter photo url: ");
+        System.out.print("Enter photo url (or type 'cancel' to go back): ");
         String url = input.nextLine();
-        System.out.print("Enter user id: ");
-        int userId = input.nextInt();
+        if (url.equalsIgnoreCase("cancel")) return;
+        System.out.print("Enter user id (or type 'cancel' to go back): ");
+        String userIdInput = input.nextLine();
+        if (userIdInput.equalsIgnoreCase("cancel")) return;
+        int userId = Integer.parseInt(userIdInput);
         Photo photo = PhotoFactory.create(url, new Date(), userId);
         PhotoController.create(photo);
         break;
       case 2:
-        System.out.print("Enter photo id: ");
-        int id = input.nextInt();
+        System.out.print("Enter photo id (or type 'cancel' to go back): ");
+        String idInput = input.nextLine();
+        if (idInput.equalsIgnoreCase("cancel")) return;
+        int id = Integer.parseInt(idInput);
         Photo foundPhoto = PhotoController.show(id);
         System.out.println(foundPhoto);
         break;
@@ -139,13 +155,17 @@ public class Main {
         boolean validInput = false;
         do {
           try {
-            System.out.print("Enter photo id: ");
-            int photoId = input.nextInt();
-            input.nextLine();
-            System.out.print("Enter new photo url: ");
+            System.out.print("Enter photo id (or type 'cancel' to go back): ");
+            String photoIdInput = input.nextLine();
+            if (photoIdInput.equalsIgnoreCase("cancel")) return;
+            int photoId = Integer.parseInt(photoIdInput);
+            System.out.print("Enter new photo url (or type 'cancel' to go back): ");
             String newUrl = input.nextLine();
-            System.out.print("Enter new user id: ");
-            int newUserId = input.nextInt();
+            if (newUrl.equalsIgnoreCase("cancel")) return;
+            System.out.print("Enter new user id (or type 'cancel' to go back): ");
+            String newUserIdInput = input.nextLine();
+            if (newUserIdInput.equalsIgnoreCase("cancel")) return;
+            int newUserId = Integer.parseInt(newUserIdInput);
             Photo newPhoto = PhotoFactory.create(newUrl, new Date(), newUserId);
             PhotoController.update(photoId, newPhoto);
             validInput = true;
@@ -156,8 +176,10 @@ public class Main {
         } while (!validInput);
         break;
       case 5:
-        System.out.print("Enter photo id: ");
-        int deleteId = input.nextInt();
+        System.out.print("Enter photo id (or type 'cancel' to go back): ");
+        String deleteIdInput = input.nextLine();
+        if (deleteIdInput.equalsIgnoreCase("cancel")) return;
+        int deleteId = Integer.parseInt(deleteIdInput);
         PhotoController.remove(deleteId);
         break;
       case 0:

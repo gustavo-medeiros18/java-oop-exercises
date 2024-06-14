@@ -1,6 +1,7 @@
 package exercise4.services;
 
 import exercise4.database.UserRepository;
+import exercise4.exceptions.InvalidEmailException;
 import exercise4.factories.UserFactory;
 import exercise4.models.User;
 import exercise4.strategies.ValidationStrategy;
@@ -15,13 +16,10 @@ public class UserService {
   }
 
   public User create(User user) {
-    if (!this.validator.isValid(user.getEmail())) {
-      System.out.println("Email address is invalid!");
-      return null;
-    }
+    if (!this.validator.isValid(user.getEmail()))
+      throw new InvalidEmailException("Invalid email address!");
 
     UserRepository.add(user);
-
     return user;
   }
 
@@ -35,6 +33,9 @@ public class UserService {
 
   // update method
   public void update(int id, User newUserData) {
+    if (!this.validator.isValid(newUserData.getEmail()))
+      throw new InvalidEmailException("Invalid email address!");
+
     UserRepository.update(id, newUserData);
   }
 

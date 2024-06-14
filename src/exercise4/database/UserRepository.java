@@ -1,16 +1,17 @@
 package exercise4.database;
 
 import exercise4.exceptions.UserNotFoundException;
-import exercise4.models.Photo;
 import exercise4.models.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserRepository {
+  private static int idCount = 1;
   static List<User> users = new ArrayList<>();
 
   public static void add(User user) {
+    user.setId(idCount++);
     users.add(user);
   }
 

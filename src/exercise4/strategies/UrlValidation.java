@@ -9,6 +9,6 @@ public class UrlValidation implements ValidationStrategy {
 
   @Override
   public boolean isValid(String inputData) {
-    return URL_PATTERN.matcher(inputData).matches();
+    return !URL_PATTERN.matcher(inputData).matches();
   }
 }

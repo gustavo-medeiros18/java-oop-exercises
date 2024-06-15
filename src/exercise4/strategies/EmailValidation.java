@@ -8,6 +8,6 @@ public class EmailValidation implements ValidationStrategy {
 
   @Override
   public boolean isValid(String inputData) {
-    return EMAIL_PATTERN.matcher(inputData).matches();
+    return !EMAIL_PATTERN.matcher(inputData).matches();
   }
 }

@@ -11,14 +11,14 @@ import exercise4.strategies.ValidationStrategy;
 import java.util.List;
 
 public class PhotoService {
-  private ValidationStrategy validator;
+  private final ValidationStrategy validator;
 
   public PhotoService(ValidationStrategy validator) {
     this.validator = validator;
   }
 
   public Photo create(Photo photo) {
-    if (!this.validator.isValid(photo.getUrl()))
+    if (this.validator.isValid(photo.getUrl()))
       throw new InvalidUrlException("URL is invalid!");
 
     User user = UserRepository.find(photo.getUserId());
@@ -37,7 +37,7 @@ public class PhotoService {
   }
 
   public void update(int id, Photo newPhotoData) {
-    if (!this.validator.isValid(newPhotoData.getUrl()))
+    if (this.validator.isValid(newPhotoData.getUrl()))
       throw new InvalidUrlException("URL is invalid!");
 
     User user = UserRepository.find(newPhotoData.getUserId());

@@ -7,7 +7,7 @@ public class User {
   private Integer id;
   private String name;
   private String email;
-  private List<Photo> photos;
+  private final List<Photo> photos;
 
   public User(String name, String email) {
     this.name = name;

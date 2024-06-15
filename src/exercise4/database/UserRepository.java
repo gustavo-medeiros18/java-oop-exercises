@@ -51,6 +51,12 @@ public class UserRepository {
 
   public static void delete(int id) {
     User user = find(id);
-    users.remove(user);
+
+    if (user == null)
+      throw new UserNotFoundException("User with id " + id + " not found.");
+    else {
+      PhotoRepository.photos.removeIf(photo -> photo.getUserId() == user.getId());
+      users.remove(user);
+    }
   }
 }

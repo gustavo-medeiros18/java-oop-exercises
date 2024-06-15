@@ -65,7 +65,9 @@ public class PhotoRepository {
   public static void delete(int id) {
     Photo photo = find(id);
 
-    if (photo != null) {
+    if (photo == null)
+      throw new PhotoNotFoundException("Photo with id " + id + " not found.");
+    else {
       User user = UserRepository.find(photo.getUserId());
       if (user != null) user.getPhotos().remove(photo);
 

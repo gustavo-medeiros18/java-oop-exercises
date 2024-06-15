@@ -7,6 +7,8 @@ import exercise4.models.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.OptionalInt;
+import java.util.stream.IntStream;
 
 public class PhotoRepository {
   private static int idCount = 1;
@@ -36,10 +38,15 @@ public class PhotoRepository {
   }
 
   public static void update(int id, Photo newPhotoData) {
-    Photo photo = find(id);
+    OptionalInt indexOpt = IntStream.range(0, photos.size())
+            .filter(i -> photos.get(i).getId() == id)
+            .findFirst();
 
-    if (photo == null)
+    if (indexOpt.isEmpty())
       throw new PhotoNotFoundException("Photo with id " + id + " not found.");
+
+
+    Photo photo = photos.get(indexOpt.getAsInt());
 
     User oldUser = UserRepository.find(photo.getUserId());
     if (oldUser == null)
@@ -59,7 +66,7 @@ public class PhotoRepository {
       photo.setUserId(newPhotoData.getUserId());
     }
 
-    photos.set(id - 1, photo);
+    photos.set(indexOpt.getAsInt(), photo);
   }
 
   public static void delete(int id) {

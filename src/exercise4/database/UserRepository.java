@@ -5,6 +5,8 @@ import exercise4.models.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.OptionalInt;
+import java.util.stream.IntStream;
 
 public class UserRepository {
   private static int idCount = 1;
@@ -38,15 +40,19 @@ public class UserRepository {
   }
 
   public static void update(int id, User newUserData) {
-    User user = find(id);
+    OptionalInt indexOpt = IntStream.range(0, users.size())
+            .filter(i -> users.get(i).getId() == id)
+            .findFirst();
 
-    if (user == null)
+    if (indexOpt.isEmpty())
       throw new UserNotFoundException("User with id " + id + " not found.");
+
+    User user = users.get(indexOpt.getAsInt());
 
     user.setName(newUserData.getName());
     user.setEmail(newUserData.getEmail());
 
-    users.set(id - 1, user);
+    users.set(indexOpt.getAsInt(), user);
   }
 
   public static void delete(int id) {

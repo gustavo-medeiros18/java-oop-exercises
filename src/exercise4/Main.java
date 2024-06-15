@@ -110,11 +110,15 @@ public class Main {
           } while (!validInput);
           break;
         case 5:
-          System.out.print("Enter user id (or type 'cancel' to go back): ");
-          String deleteIdInput = input.nextLine();
-          if (deleteIdInput.equalsIgnoreCase("cancel")) break;
-          int deleteId = Integer.parseInt(deleteIdInput);
-          UserController.remove(deleteId);
+          try {
+            System.out.print("Enter user id (or type 'cancel' to go back): ");
+            String deleteIdInput = input.nextLine();
+            if (deleteIdInput.equalsIgnoreCase("cancel")) break;
+            int deleteId = Integer.parseInt(deleteIdInput);
+            UserController.remove(deleteId);
+          } catch (UserNotFoundException e) {
+            System.out.println(e.getMessage());
+          }
           break;
         case 0:
           break;

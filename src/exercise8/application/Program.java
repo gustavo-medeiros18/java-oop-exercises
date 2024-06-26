@@ -1,6 +1,7 @@
 package exercise8.application;
 
 import exercise8.db.DB;
+import exercise8.db.DbException;
 import exercise8.db.DbIntegrityException;
 
 import java.sql.*;
@@ -13,7 +14,8 @@ public class Program {
 //    insertSeller();
 //    insertDepartments();
 //    updateSeller();
-    deleteDepartment();
+//    deleteDepartment();
+    testTransactions();
   }
 
   private static void retrieveAllDepartments() {
@@ -159,6 +161,37 @@ public class Program {
     } finally {
       DB.closeStatement(st);
       DB.closeConnection();
+    }
+  }
+
+  private static void testTransactions() {
+    Connection conn = null;
+    Statement st = null;
+
+    try {
+      conn = DB.getConnection();
+      st = conn.createStatement();
+
+      conn.setAutoCommit(false);
+
+      int rows1 = st.executeUpdate("UPDATE seller SET BaseSalary = 2000 WHERE DepartmentId = 1");
+
+      if (true)
+        throw new SQLException("Fake error");
+
+      int rows2 = st.executeUpdate("UPDATE seller SET BaseSalary = 2000 WHERE DepartmentId = 2");
+
+      conn.commit();
+      System.out.println("rows1: " + rows1);
+      System.out.println("rows2: " + rows2);
+    } catch (SQLException e) {
+      try {
+        conn.rollback();
+
+        throw new DbException("Transaction rolled back! Caused by: " + e.getMessage());
+      } catch (SQLException ex) {
+        throw new DbException(ex.getMessage());
+      }
     }
   }
 }

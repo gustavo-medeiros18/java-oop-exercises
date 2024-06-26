@@ -9,7 +9,8 @@ import java.text.SimpleDateFormat;
 public class Program {
   public static void main(String[] args) throws SQLException {
 //    retrieveAllDepartments();
-    createSeller();
+//    insertSeller();
+    insertDepartments();
   }
 
   private static void retrieveAllDepartments() {
@@ -69,6 +70,38 @@ public class Program {
       } else
         System.out.println("No rows affected!");
     } catch (SQLException | ParseException e) {
+      System.out.println(e.getMessage());
+    } finally {
+      DB.closeStatement(st);
+      DB.closeConnection();
+    }
+  }
+
+  private static void insertDepartments() {
+    Connection conn = null;
+    PreparedStatement st = null;
+
+    try {
+      conn = DB.getConnection();
+      st = conn.prepareStatement(
+          "INSERT INTO department (Name) VALUES (?), (?)",
+          Statement.RETURN_GENERATED_KEYS
+      );
+
+      st.setString(1, "D1");
+      st.setString(2, "D2");
+
+      int rowsAffected = st.executeUpdate();
+      if (rowsAffected > 0) {
+        ResultSet rs = st.getGeneratedKeys();
+
+        while (rs.next())
+          System.out.println("Done! Id = " + rs.getInt(1));
+
+        DB.closeResultSet(rs);
+      } else
+        System.out.println("No rows affected!");
+    } catch (SQLException e) {
       System.out.println(e.getMessage());
     } finally {
       DB.closeStatement(st);

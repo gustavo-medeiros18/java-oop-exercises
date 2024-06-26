@@ -3,12 +3,32 @@ package exercise8.application;
 import exercise8.db.DB;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class Program {
   public static void main(String[] args) throws SQLException {
-    Connection conn = DB.getConnection();
+    Connection conn = null;
 
-    DB.closeConnection();
+    Statement st = null;
+    ResultSet rs = null;
+
+    try {
+      conn = DB.getConnection();
+      st = conn.createStatement();
+
+      rs = st.executeQuery("SELECT * FROM department");
+
+      while (rs.next()) {
+        System.out.println(rs.getInt("Id") + ", " + rs.getString("Name"));
+      }
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    } finally {
+      DB.closeResultSet(rs);
+      DB.closeStatement(st);
+      DB.closeConnection();
+    }
   }
 }

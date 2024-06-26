@@ -1,6 +1,7 @@
 package exercise8.application;
 
 import exercise8.db.DB;
+import exercise8.db.DbIntegrityException;
 
 import java.sql.*;
 import java.text.ParseException;
@@ -11,8 +12,8 @@ public class Program {
 //    retrieveAllDepartments();
 //    insertSeller();
 //    insertDepartments();
-    updateSeller();
-
+//    updateSeller();
+    deleteDepartment();
   }
 
   private static void retrieveAllDepartments() {
@@ -131,6 +132,30 @@ public class Program {
       System.out.println("Done! Rows affected: " + rowsAffected);
     } catch (SQLException e) {
       System.out.println(e.getMessage());
+    } finally {
+      DB.closeStatement(st);
+      DB.closeConnection();
+    }
+  }
+
+  private static void deleteDepartment() {
+    Connection conn = null;
+    PreparedStatement st = null;
+
+    try {
+      conn = DB.getConnection();
+      st = conn.prepareStatement(
+          "DELETE FROM department "
+              + "WHERE "
+              + "Id = ?"
+      );
+
+      st.setInt(1, 2);
+
+      int rowsAffected = st.executeUpdate();
+      System.out.println("Done! Rows affected: " + rowsAffected);
+    } catch (SQLException e) {
+      throw new DbIntegrityException(e.getMessage());
     } finally {
       DB.closeStatement(st);
       DB.closeConnection();

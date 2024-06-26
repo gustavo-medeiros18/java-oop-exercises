@@ -36,7 +36,7 @@ public class Program {
     }
   }
 
-  private static void createSeller() {
+  private static void insertSeller() {
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
     Connection conn = null;
@@ -48,7 +48,8 @@ public class Program {
           "INSERT INTO seller "
               + "(Name, Email, BirthDate, BaseSalary, DepartmentId) "
               + "VALUES "
-              + "(?, ?, ?, ?, ?)"
+              + "(?, ?, ?, ?, ?)",
+          Statement.RETURN_GENERATED_KEYS
       );
 
       st.setString(1, "Carl Purple");
@@ -58,8 +59,15 @@ public class Program {
       st.setInt(5, 4);
 
       int rowsAffected = st.executeUpdate();
+      if (rowsAffected > 0) {
+        ResultSet rs = st.getGeneratedKeys();
 
-      System.out.println("Done! Rows affected: " + rowsAffected);
+        while (rs.next())
+          System.out.println("Done! Id = " + rs.getInt(1));
+
+        DB.closeResultSet(rs);
+      } else
+        System.out.println("No rows affected!");
     } catch (SQLException | ParseException e) {
       System.out.println(e.getMessage());
     } finally {
